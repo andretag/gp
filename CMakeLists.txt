@@ -5,6 +5,9 @@ project(gp C CXX)
 option(BUILD_TESTS "Build tests" ON)
 option(BUILD_DOCUMENTATION "Build documentation" OFF)
 set(CMAKE_CXX_FLAGS "-Wno-deprecated-declarations")
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 
 # Extra variables.
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
