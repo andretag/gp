@@ -54,7 +54,9 @@ namespace gp {
 
   class Plot1D : public MatPlot {
   public:
-    ~Plot1D() {}
+    ~Plot1D() {
+      delete gp_;
+    }
     Plot1D(const GaussianProcess* const gp, double xmin, double xmax,
            double ymin, double ymax, size_t num_points = 100,
            const std::string& title = "", const std::string& xlabel = "",
@@ -96,7 +98,7 @@ namespace gp {
 
       // Also unpack the GP training points.
       const ConstPointSet points = gp_->ImmutablePoints();
-      const VectorXd targets = gp_->ImmutableTargets();
+      const VectorXd targets = gp_->ImmutableTargets().head(points->size());
       CHECK_EQ(points->size(), targets.size());
 
       std::vector<double> training_x(points->size());
@@ -106,10 +108,20 @@ namespace gp {
         training_y[ii] = targets(ii);
       }
 
+      // Evaluate the original function.
+      std::vector<double> y_gt(num_points_); 
+      for (size_t ii = 0; ii < num_points_; ii++){
+        // Evaluate function used to generate datapoints.
+        double freq = 5.0; 
+        double amp = 0.1;
+        y_gt[ii] = (x[ii] - 0.5) * (x[ii] - 0.5) + amp * sin(2.0 * M_PI * freq * x[ii]);
+      }
+
       // Plot.
       plot(x, mu); set(2); set("g");
       plot(x, upper); set(2); set("r"); set(":");
       plot(x, lower); set(2); set("r"); set(":");
+      plot(x, y_gt); set(1); set("b");
       plot(training_x, training_y); set(3); set("p"); set("*");
 
       axis(xmin_, xmax_, ymin_, ymax_);
@@ -118,7 +130,7 @@ namespace gp {
       xlabel(xlabel_);
       ylabel(ylabel_);
     }
-
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   private:
     // Gaussian process pointer.
     const GaussianProcess* const gp_;

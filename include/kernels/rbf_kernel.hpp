@@ -60,6 +60,7 @@ namespace gp {
     void Gradient(const VectorXd& x, const VectorXd& y,
                   VectorXd& gradient) const;
 
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   private:
     explicit RbfKernel(const VectorXd& lengths);
   }; //\class RbfKernel

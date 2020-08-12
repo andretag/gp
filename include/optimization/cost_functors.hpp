@@ -134,7 +134,8 @@ namespace gp {
     int NumParameters() const {
       return static_cast<int>(kernel_->ImmutableParams().size());
     }
-
+    
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   private:
     // Inputs: training points, training targets, kernel, and noise.
     // Optimization variables: kernel parameters.

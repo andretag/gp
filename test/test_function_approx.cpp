@@ -72,12 +72,12 @@ TEST(GaussianProcess, TestFunctionApprox1D) {
   const size_t kNumTestPoints = 100;
   const double kMaxRmsError = 0.01;
   const double kNoiseVariance = 1e-3;
-  const double kLength = 1.0;
+  const double kLength = 0.1;
 
   const size_t kBatchSize = 16;
   const size_t kGradUpdates = 10000;
   const size_t kRelearnInterval = 2000;
-  const double kStepSize = 1.0;
+  const double kStepSize = 0.1;
 
   // Random number generator.
   std::random_device rd;

@@ -80,6 +80,7 @@ namespace gp {
       params_(ii) += diff;
     }
 
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   protected:
     explicit Kernel(const VectorXd& params)
       : params_(params) {}

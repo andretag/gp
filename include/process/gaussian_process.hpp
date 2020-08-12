@@ -97,6 +97,7 @@ namespace gp {
     const Eigen::LLT<MatrixXd>& ImmutableCholesky() const { return llt_; }
     size_t Dimension() const { return dimension_; }
 
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   private:
     // Compute the covariance and cross covariance against the training points.
     void Covariance();

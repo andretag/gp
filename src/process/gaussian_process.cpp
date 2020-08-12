@@ -71,6 +71,7 @@ namespace gp {
 
     // Populate 'points_' and 'targets_'.
     points_->reserve(max_points_);
+    targets_.setZero();
     for (size_t ii = 0; ii < max_points / 10 + 1; ii++) {
       VectorXd x(dimension);
 
