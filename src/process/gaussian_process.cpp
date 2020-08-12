@@ -74,15 +74,16 @@ namespace gp {
     targets_.setZero();
     covariance_.setZero();
     regressed_.setZero();
-    for (size_t ii = 0; ii < max_points / 10 + 1; ii++) {
-      VectorXd x(dimension);
-
-      for (size_t jj = 0; jj < dimension_; jj++)
-        x(jj) = unif(rng);
-
-      points_->push_back(x);
-      targets_(ii) = normal(rng);
-    }
+    
+    //for (size_t ii = 0; ii < max_points / 10 + 1; ii++) {
+    //  VectorXd x(dimension);
+    //
+    //  for (size_t jj = 0; jj < dimension_; jj++)
+    //    x(jj) = unif(rng);
+    //
+    //  points_->push_back(x);
+    //  targets_(ii) = normal(rng);
+    //}
 
     // Compute covariance matrix.
     Covariance();
