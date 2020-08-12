@@ -2,6 +2,7 @@
 build/
 bin/
 data/
+cmake/
 
 # Figures.
 */figures/
@@ -34,3 +35,8 @@ data/
 
 # C extensions
 *.so
+
+# VS code
+*.vscode
+*.code-workspace
+
