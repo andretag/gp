@@ -65,13 +65,15 @@ namespace gp {
 
     // Random number generator.
     std::random_device rd;
-    std::default_random_engine rng(rd());
+    std::default_random_engine rng; //(rd()); uncomment this to change the random seed. 
     std::uniform_real_distribution<double> unif(-1.0, 1.0);
     std::normal_distribution<double> normal(0.0, 0.1);
 
     // Populate 'points_' and 'targets_'.
     points_->reserve(max_points_);
     targets_.setZero();
+    covariance_.setZero();
+    regressed_.setZero();
     for (size_t ii = 0; ii < max_points / 10 + 1; ii++) {
       VectorXd x(dimension);
 
@@ -112,6 +114,8 @@ namespace gp {
 
     // Set dimension.
     dimension_ = points_->at(0).size();
+    covariance_.setZero();
+    regressed_.setZero();
 
     // Random number generator.
     std::random_device rd;
@@ -153,6 +157,8 @@ namespace gp {
 
     // Set dimension.
     dimension_ = points_->at(0).size();
+    covariance_.setZero();
+    regressed_.setZero();
 
     // Set 'targets_'.
     targets_.head(points_->size()) = targets;
@@ -173,10 +179,11 @@ namespace gp {
                                  double& mean, double& variance) const {
     // Compute cross covariance.
     VectorXd cross(points_->size());
+    cross.setZero();
     CrossCovariance(x, cross);
 
     // Compute mean and variance.
-    mean = cross.dot(regressed_);
+    mean = cross.dot(regressed_.head(points_->size()));
     variance = 1.0 - cross.dot(llt_.solve(cross));
   }
 
